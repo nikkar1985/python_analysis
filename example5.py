@@ -1,5 +1,5 @@
 import json 
-raw_data = [1.82, 0.0, 1.85, None, 1.90, 1.78, 0.0 , 2.00]
+raw_data = [1.82, 0.0, 1.85, None, 1.90, 1.78, 0.0 , 2.00 , 1.70, 2.2 , 1.10]
 print(f"Αρχικά δεδομένα {raw_data}")
 
 clean_data = []
@@ -16,11 +16,25 @@ count= len(clean_data)
 
 if count > 0 :
     average = sum(clean_data) / count
+    min_price = min(clean_data)
+    max_price = max (clean_data)
 
 else : 
     average = 0
+    min_price = 0
+    max_price = 0
     
 print(f"Η μέση τιμή είναι {average}")
+
+
+
+limit = 1.85
+
+if average > limit :
+    status_msg = "High prices"
+else:
+    status_msg = "Normal prices"
+
 
 
 report = {
@@ -32,7 +46,10 @@ report = {
     },
     "data" : {
         "prices" : clean_data,
-        "average_price": round(average,3)
+        "average_price": round(average,3),
+        "min_price" : min_price,
+        "max_price" : max_price,
+        "alert_level": status_msg
     }
     
 }
