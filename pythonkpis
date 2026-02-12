@@ -1,0 +1,48 @@
+import json
+
+session_times = [45, 12, 120, 8, 250, 5, 60, 13, 300, 4]
+
+bounced_users = []
+engaged_users = []
+
+for t in session_times:
+    if t < 15:
+        bounced_users.append(t)
+    else:
+        engaged_users.append(t)
+        
+print("Υπολογισμός KPIs")
+total_users = len(session_times)
+bounce_rate = (len(bounced_users) / total_users) * 100
+
+
+
+#
+if len(engaged_users) > 0:
+    avg_engagement_time = sum(engaged_users) / len(engaged_users)
+else:
+    avg_engagement_time = 0
+    
+
+
+marketing_report = {
+    "summary": {
+        "total_sessions" : total_users,
+        "bounce_rate_percentage" :round(bounce_rate, 2),
+        "avg_engagement_time": round(avg_engagement_time, 2)
+    },
+    "raw_data_summary" : {
+        "bounced_count" : len(bounced_users),
+        "engaged_count": len(engaged_users)
+        
+        }
+}
+
+print(f"Συνολικοί χρήστες {total_users}")
+print(f"Ποσοστό εγκατάλειψης < 15 sec: {bounce_rate}%")
+print(f"Μέσος χρόνος όσων έμεινα > 15 sec είναι: {avg_engagement_time}")
+
+
+
+json_data=json.dumps(marketing_report, indent=4)
+print(json_data)
